@@ -6,6 +6,7 @@ import (
 
 const PageSize = 4096
 
+// CreateDB creates a new database file or truncates an existing one.
 func CreateDB(path string) error {
 	f,err := os.Create(path) //create a file or truncate it if it is already present
 	if err != nil{
@@ -14,6 +15,7 @@ func CreateDB(path string) error {
 	return f.Close()
 }
 
+// AllocatePage allocates a new page in the database file with owner read & write permissions,group read permissions,other read permissions.
 func AllocatePage(path string) (int64,error) {
 	f,err := os.OpenFile(path,os.O_WRONLY|os.O_APPEND,0644)
 	if err != nil {
@@ -36,6 +38,7 @@ func AllocatePage(path string) (int64,error) {
 	return (info.Size() / PageSize) - 1,nil //return new page's id
 }
 
+// ReadPage reads a page from the database file using pageID.
 func ReadPage (path string,pageID int64) ([]byte,error) {
 	f,err := os.Open(path)
 	if err != nil {
@@ -53,6 +56,7 @@ func ReadPage (path string,pageID int64) ([]byte,error) {
 	return page,nil
 }
 
+// WritePage writes a page to the database file using pageID.
 func WritePage(path string,pageID int64,data []byte) error {
 	f,err := os.OpenFile(path,os.O_WRONLY,0644)
 	if err != nil {
