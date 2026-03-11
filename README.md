@@ -11,7 +11,7 @@ A distributed relational database engine built from scratch in Go.
 Building the core storage engine. No libraries. Just bytes on disk.
 
 - [x] Page read / write (DiskManager)
-- [ ] Slotted page layout
+- [x] Slotted page layout
 - [ ] Row serialization
 - [ ] B-tree insert and search
 - [ ] Buffer pool manager
